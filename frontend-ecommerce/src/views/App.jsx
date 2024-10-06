@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import '../index.css';  
-import Form from '../components/Form';  // Asegúrate de que Form esté correctamente capitalizado
-import Todo from '../components/Todo';  
+import '../index.css';
+import Form from '../components/Form';
+import Todo from '../components/Todo';
 
 const App = () => {
-  const [products, setProducts] = useState([]);  
+  const [products, setProducts] = useState([]);
 
   const addProduct = (product) => {
-    setProducts([...products, product]);  
+    setProducts([...products, product]);
+  };
+
+  const deleteProduct = (index) => {
+    const updatedProducts = products.filter((_, i) => i !== index);
+    setProducts(updatedProducts);
   };
 
   return (
@@ -15,11 +20,8 @@ const App = () => {
       <h1>Tienda de Mates</h1>
       <p>Aquí puedes agregar nuevos mates y ver la lista de productos.</p>
 
-      {/* Formulario para agregar productos */}
-      <Form onAddProduct={addProduct} /> {/* Cambié ProductForm a Form */}
-
-      {/* Lista de productos */}
-      <Todo products={products} />
+      <Form onAddProduct={addProduct} />
+      <Todo products={products} onDeleteProduct={deleteProduct} />
     </div>
   );
 };

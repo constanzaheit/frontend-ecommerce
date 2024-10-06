@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Form.css';  // Importa el archivo CSS
 
 const Form = ({ onAddProduct }) => {
   const [description, setDescription] = useState('');
