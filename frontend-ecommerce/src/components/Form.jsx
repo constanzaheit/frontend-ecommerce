@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import Todo from './Todo';  // Importa el componente Todo
 
-const Form = () => {
-  const [todos, setTodos] = useState([]);  // Maneja la lista de productos/tareas
+const Form = ({ onAddProduct }) => {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [material, setMaterial] = useState('');
@@ -11,15 +9,29 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newTodo = {
+
+    if (
+      description.trim() === '' ||
+      price.trim() === '' ||
+      material.trim() === '' ||
+      color.trim() === '' ||
+      stock.trim() === ''
+    ) {
+      alert('Por favor, completa todos los campos');
+      return;
+    }
+
+    const newProduct = {
       description,
-      price,
+      price: parseFloat(price),
       material,
       color,
-      stock
+      stock: parseInt(stock),
     };
-    setTodos([...todos, newTodo]);  // Añade el nuevo producto a la lista
-    // Limpia el formulario
+
+    onAddProduct(newProduct);
+
+    // Limpiar los campos
     setDescription('');
     setPrice('');
     setMaterial('');
@@ -28,49 +40,39 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="Descripción del mate"
-          required
-        />
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          placeholder="Precio"
-          required
-        />
-        <input
-          type="text"
-          value={material}
-          onChange={(e) => setMaterial(e.target.value)}
-          placeholder="Material"
-          required
-        />
-        <input
-          type="text"
-          value={color}
-          onChange={(e) => setColor(e.target.value)}
-          placeholder="Color"
-          required
-        />
-        <input
-          type="number"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
-          placeholder="Stock disponible"
-          required
-        />
-        <button type="submit">Agregar Producto</button>
-      </form>
-
-      {/* Renderiza el componente Todo y pasa la lista de productos */}
-      <Todo todos={todos} />
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Descripción"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Precio"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Material"
+        value={material}
+        onChange={(e) => setMaterial(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Color"
+        value={color}
+        onChange={(e) => setColor(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Stock"
+        value={stock}
+        onChange={(e) => setStock(e.target.value)}
+      />
+      <button type="submit">Agregar Mate</button>
+    </form>
   );
 };
 

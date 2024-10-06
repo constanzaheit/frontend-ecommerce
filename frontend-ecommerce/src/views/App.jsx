@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import '../index.css';  // Ruta correcta al archivo de estilos
-import ProductForm from '../components/ProductForm';  // Ruta correcta al componente ProductForm
-import Todo from '../components/Todo';  // Ruta correcta al componente Todo
+import '../index.css';  
+import Form from '../components/Form';  // Asegúrate de que Form esté correctamente capitalizado
+import Todo from '../components/Todo';  
 
 const App = () => {
-  const [products, setProducts] = useState([]);  // Estado para manejar la lista de productos
+  const [products, setProducts] = useState([]);  
 
-  // Función para agregar un producto
   const addProduct = (product) => {
-    setProducts([...products, product]);  // Añadir el producto a la lista
+    setProducts([...products, product]);  
   };
 
   return (
@@ -17,7 +16,7 @@ const App = () => {
       <p>Aquí puedes agregar nuevos mates y ver la lista de productos.</p>
 
       {/* Formulario para agregar productos */}
-      <ProductForm onAddProduct={addProduct} />
+      <Form onAddProduct={addProduct} /> {/* Cambié ProductForm a Form */}
 
       {/* Lista de productos */}
       <Todo products={products} />
